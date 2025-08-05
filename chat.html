@@ -24,22 +24,11 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-const auth = getAuth(app);
-
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.href = "login.html";
-    return;
-  }
-
-  const name = user.email.split("@")[0]; // ← USE EMAIL NAME AS CHAT NAME
-
-  // 👇 Place all your Firebase chat logic here inside this block,
-  // including messageForm.addEventListener, onChildAdded, deleteBtn logic etc.
-
-});
-
+    const name = localStorage.getItem("chatName") || prompt("Enter your name:");
+    if (!name) {
+      alert("Name required");
+      window.location.href = "index.html";
+    }
 
     const messagesRef = ref(db, "messages");
 
